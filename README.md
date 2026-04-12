@@ -31,6 +31,22 @@ Seed data inserted.
 ============================================================
   Query 1 - Vehicles at Edinburgh (O001)
 ============================================================
+
+SQL:
+
+        SELECT
+            v.RegistrationNumber,
+            v.Make,
+            v.Model,
+            v.EngineSize,
+            v.Capacity,
+            v.DailyHireRate
+        FROM VEHICLE v
+        JOIN OUTLET o ON v.OutletNumber = o.OutletNumber
+        WHERE o.OutletNumber = 'O001'
+    
+
+Results:
   RegistrationNumber | Make       | Model | EngineSize | Capacity | DailyHireRate
   -------------------------------------------------------------------------------
   EH21 XYZ           | Vauxhall   | Corsa | 1.2L       | 5        | 35.0         
@@ -39,6 +55,25 @@ Seed data inserted.
 ============================================================
   Query 2 - Hire history for Client C001 (Robert Thomson)
 ============================================================
+
+SQL:
+
+        SELECT
+            h.HireNumber,
+            h.StartDate,
+            h.EndDate,
+            h.MileageBefore,
+            h.MileageAfter,
+            v.Make,
+            v.Model,
+            v.RegistrationNumber
+        FROM HIRE_AGREEMENT h
+        JOIN CLIENT c ON h.ClientNumber = c.ClientNumber
+        JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
+        WHERE c.ClientNumber = 'C001'
+    
+
+Results:
   HireNumber | StartDate  | EndDate    | MileageBefore | MileageAfter | Make       | Model | RegistrationNumber
   -------------------------------------------------------------------------------------------------------------
   H001       | 2024-01-10 | 2024-01-15 | 12000         | 12350        | Vauxhall   | Corsa | EH21 XYZ          
@@ -47,6 +82,21 @@ Seed data inserted.
 ============================================================
   Query 3 - Staff at Glasgow (O002)
 ============================================================
+
+SQL:
+
+        SELECT
+            s.StaffNumber,
+            s.FirstName,
+            s.LastName,
+            s.JobTitle,
+            s.Salary
+        FROM STAFF s
+        JOIN OUTLET o ON s.OutletNumber = o.OutletNumber
+        WHERE o.OutletNumber = 'O002'
+    
+
+Results:
   StaffNumber | FirstName | LastName | JobTitle       | Salary 
   -------------------------------------------------------------
   S003        | Hamish    | Stewart  | Branch Manager | 44000.0
@@ -55,6 +105,28 @@ Seed data inserted.
 ============================================================
   Query 4 - Mileage driven on Hire H003
 ============================================================
+
+SQL:
+
+        SELECT
+            h.HireNumber,
+            h.MileageBefore,
+            h.MileageAfter,
+            (h.MileageAfter - h.MileageBefore) AS MileageDriven,
+            c.FirstName,
+            c.LastName,
+            c.PhoneNumber,
+            v.Make,
+            v.Model,
+            v.EngineSize
+        FROM HIRE_AGREEMENT h
+        JOIN CLIENT c ON h.ClientNumber = c.ClientNumber
+        JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
+        WHERE h.HireNumber = 'H003'
+        AND h.MileageAfter IS NOT NULL
+    
+
+Results:
   HireNumber | MileageBefore | MileageAfter | MileageDriven | FirstName | LastName | PhoneNumber    | Make   | Model   | EngineSize
   ---------------------------------------------------------------------------------------------------------------------------------
   H003       | 45000         | 45620        | 620           | David     | Brown    | 01224-555-2003 | Nissan | Qashqai | 1.5L      
@@ -62,6 +134,29 @@ Seed data inserted.
 ============================================================
   Query 5 - Active hires at Aberdeen (O003)
 ============================================================
+
+SQL:
+
+        SELECT
+            h.HireNumber,
+            h.StartDate,
+            h.EndDate,
+            v.RegistrationNumber,
+            v.Make,
+            v.Model,
+            c.FirstName,
+            c.LastName,
+            c.PhoneNumber
+        FROM HIRE_AGREEMENT h
+        JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
+        JOIN OUTLET o ON v.OutletNumber = o.OutletNumber
+        JOIN CLIENT c ON h.ClientNumber = c.ClientNumber
+        WHERE o.OutletNumber = 'O003'
+        AND h.MileageAfter IS NULL
+        AND h.EndDate >= DATE('now')
+    
+
+Results:
   HireNumber | StartDate  | EndDate    | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber  
   ---------------------------------------------------------------------------------------------------------------
   H007       | 2024-06-05 | 2026-04-30 | AB20 PQR           | Ford | Kuga  | Emma      | Scott    | 0131-555-2006
