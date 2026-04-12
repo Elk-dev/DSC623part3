@@ -25,6 +25,8 @@ python src/main.py
 
 <!-- RESULTS_START -->
 ```
+Tables created.
+Seed data inserted.
 
 ============================================================
   Query 1 - Vehicles at Edinburgh (O001)
@@ -158,5 +160,7 @@ Results:
   HireNumber | StartDate  | EndDate    | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber  
   ---------------------------------------------------------------------------------------------------------------
   H007       | 2024-06-05 | 2026-04-30 | AB20 PQR           | Ford | Kuga  | Emma      | Scott    | 0131-555-2006
+
+Done. Connection closed.
 ```
 <!-- RESULTS_END -->
