@@ -2,19 +2,25 @@ def print_results(title, cursor, query):
     rows = cursor.fetchall()
     columns = [description[0] for description in cursor.description]
 
-    print(f"\n### {title}")
-    print(f"\n```sql{query}```")
-    print(f"\n**Results:**\n")
+    print(f"\n{'='*60}")
+    print(f"  {title}")
+    print(f"{'='*60}")
+    print(f"\nSQL:\n{query}")
+    print(f"\nResults:")
 
     if not rows:
-        print("No results found.")
+        print("  No results found.")
         return
 
-    print("| " + " | ".join(columns) + " |")
-    print("| " + " | ".join(["---"] * len(columns)) + " |")
+    col_widths = [max(len(str(col)), max(len(str(row[i])) for row in rows)) for i, col in enumerate(columns)]
+
+    header = " | ".join(f"{col:<{col_widths[i]}}" for i, col in enumerate(columns))
+    print(f"  {header}")
+    print(f"  {'-' * len(header)}")
 
     for row in rows:
-        print("| " + " | ".join(str(row[i]) for i in range(len(columns))) + " |")
+        line = " | ".join(f"{str(row[i]):<{col_widths[i]}}" for i in range(len(columns)))
+        print(f"  {line}")
 
 
 def run_queries(conn):
