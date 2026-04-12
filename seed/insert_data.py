@@ -74,4 +74,4 @@ def insert_data(conn):
     """, hire_agreements)
 
     conn.commit()
-    print("✓ Seed data inserted.")
+    print("Seed data inserted.")

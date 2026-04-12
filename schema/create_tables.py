@@ -66,4 +66,4 @@ def create_tables(conn):
         );
     """)
     conn.commit()
-    print("✓ Tables created.")
+    print("Tables created.")
