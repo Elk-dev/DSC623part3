@@ -37,7 +37,7 @@ def run_queries(conn):
         JOIN OUTLET o ON v.OutletNumber = o.OutletNumber
         WHERE o.OutletNumber = 'O001'
     """)
-    print_results("Query 1 — Vehicles at Edinburgh (O001)", cursor)
+    print_results("Query 1 - Vehicles at Edinburgh (O001)", cursor)
 
     # Query 2 — Full hire history for a specific client
     cursor.execute("""
@@ -55,7 +55,7 @@ def run_queries(conn):
         JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
         WHERE c.ClientNumber = 'C001'
     """)
-    print_results("Query 2 — Hire history for Client C001 (Robert Thomson)", cursor)
+    print_results("Query 2 - Hire history for Client C001 (Robert Thomson)", cursor)
 
     # Query 3 — Staff at a specific outlet
     cursor.execute("""
@@ -69,7 +69,7 @@ def run_queries(conn):
         JOIN OUTLET o ON s.OutletNumber = o.OutletNumber
         WHERE o.OutletNumber = 'O002'
     """)
-    print_results("Query 3 — Staff at Glasgow (O002)", cursor)
+    print_results("Query 3 - Staff at Glasgow (O002)", cursor)
 
     # Query 4 — Mileage driven during a specific hire agreement
     cursor.execute("""
@@ -90,7 +90,7 @@ def run_queries(conn):
         WHERE h.HireNumber = 'H003'
         AND h.MileageAfter IS NOT NULL
     """)
-    print_results("Query 4 — Mileage driven on Hire H003", cursor)
+    print_results("Query 4 - Mileage driven on Hire H003", cursor)
 
     # Query 5 — Active hire agreements at a given outlet
     cursor.execute("""
@@ -112,4 +112,4 @@ def run_queries(conn):
         AND h.MileageAfter IS NULL
         AND h.EndDate >= DATE('now')
     """)
-    print_results("Query 5 — Active hires at Aberdeen (O003)", cursor)
+    print_results("Query 5 - Active hires at Aberdeen (O003)", cursor)
