@@ -25,8 +25,6 @@ python src/main.py
 
 <!-- RESULTS_START -->
 ```
-Tables created.
-Seed data inserted.
 
 ### Query 1 - Vehicles at Edinburgh (O001)
 
@@ -145,19 +143,10 @@ Seed data inserted.
         AND h.EndDate >= DATE('now')
     ```
 
-<<<<<<< HEAD
-Results:
-  HireNumber | StartDate  | EndDate    | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber  
-  ---------------------------------------------------------------------------------------------------------------
-  H007       | 2024-06-05 | 2026-04-30 | AB20 PQR           | Ford | Kuga  | Emma      | Scott    | 0131-555-2006
-
-Done. Connection closed.
-=======
 **Results:**
 
 | HireNumber | StartDate | EndDate | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | H007 | 2024-06-05 | 2026-04-30 | AB20 PQR | Ford | Kuga | Emma | Scott | 0131-555-2006 |
->>>>>>> a0f6dd4db7e17fb5a9952c56f394345963d20063
 ```
 <!-- RESULTS_END -->
