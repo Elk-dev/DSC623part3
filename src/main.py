@@ -16,4 +16,3 @@ insert_data(conn)
 run_queries(conn)
 
 conn.close()
-print("\nDone. Connection closed.")
