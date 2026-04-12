@@ -1,0 +1,40 @@
+name: Run Reliable Rentals DB
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  run-database:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run database script
+        run: python src/main.py
+
+      - name: Save results to RESULTS.md
+        run: |
+          echo "# Reliable Rentals - Query Results" > RESULTS.md
+          echo "" >> RESULTS.md
+          echo "Last updated: $(date -u)" >> RESULTS.md
+          echo "" >> RESULTS.md
+          echo '```' >> RESULTS.md
+          python src/main.py >> RESULTS.md
+          echo '```' >> RESULTS.md
+
+      - name: Commit RESULTS.md
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add RESULTS.md
+          git commit -m "Auto: update query results"
+          git push
