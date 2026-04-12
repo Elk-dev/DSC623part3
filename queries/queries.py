@@ -1,10 +1,12 @@
-def print_results(title, cursor):
+def print_results(title, cursor, query):
     rows = cursor.fetchall()
     columns = [description[0] for description in cursor.description]
 
     print(f"\n{'='*60}")
     print(f"  {title}")
     print(f"{'='*60}")
+    print(f"\nSQL:\n{query}")
+    print(f"\nResults:")
 
     if not rows:
         print("  No results found.")
@@ -24,8 +26,7 @@ def print_results(title, cursor):
 def run_queries(conn):
     cursor = conn.cursor()
 
-    # Query 1 — Vehicles at a given outlet
-    cursor.execute("""
+    q1 = """
         SELECT
             v.RegistrationNumber,
             v.Make,
@@ -36,11 +37,11 @@ def run_queries(conn):
         FROM VEHICLE v
         JOIN OUTLET o ON v.OutletNumber = o.OutletNumber
         WHERE o.OutletNumber = 'O001'
-    """)
-    print_results("Query 1 - Vehicles at Edinburgh (O001)", cursor)
+    """
+    cursor.execute(q1)
+    print_results("Query 1 - Vehicles at Edinburgh (O001)", cursor, q1)
 
-    # Query 2 — Full hire history for a specific client
-    cursor.execute("""
+    q2 = """
         SELECT
             h.HireNumber,
             h.StartDate,
@@ -54,11 +55,11 @@ def run_queries(conn):
         JOIN CLIENT c ON h.ClientNumber = c.ClientNumber
         JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
         WHERE c.ClientNumber = 'C001'
-    """)
-    print_results("Query 2 - Hire history for Client C001 (Robert Thomson)", cursor)
+    """
+    cursor.execute(q2)
+    print_results("Query 2 - Hire history for Client C001 (Robert Thomson)", cursor, q2)
 
-    # Query 3 — Staff at a specific outlet
-    cursor.execute("""
+    q3 = """
         SELECT
             s.StaffNumber,
             s.FirstName,
@@ -68,11 +69,11 @@ def run_queries(conn):
         FROM STAFF s
         JOIN OUTLET o ON s.OutletNumber = o.OutletNumber
         WHERE o.OutletNumber = 'O002'
-    """)
-    print_results("Query 3 - Staff at Glasgow (O002)", cursor)
+    """
+    cursor.execute(q3)
+    print_results("Query 3 - Staff at Glasgow (O002)", cursor, q3)
 
-    # Query 4 — Mileage driven during a specific hire agreement
-    cursor.execute("""
+    q4 = """
         SELECT
             h.HireNumber,
             h.MileageBefore,
@@ -89,11 +90,11 @@ def run_queries(conn):
         JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
         WHERE h.HireNumber = 'H003'
         AND h.MileageAfter IS NOT NULL
-    """)
-    print_results("Query 4 - Mileage driven on Hire H003", cursor)
+    """
+    cursor.execute(q4)
+    print_results("Query 4 - Mileage driven on Hire H003", cursor, q4)
 
-    # Query 5 — Active hire agreements at a given outlet
-    cursor.execute("""
+    q5 = """
         SELECT
             h.HireNumber,
             h.StartDate,
@@ -111,5 +112,6 @@ def run_queries(conn):
         WHERE o.OutletNumber = 'O003'
         AND h.MileageAfter IS NULL
         AND h.EndDate >= DATE('now')
-    """)
-    print_results("Query 5 - Active hires at Aberdeen (O003)", cursor)
+    """
+    cursor.execute(q5)
+    print_results("Query 5 - Active hires at Aberdeen (O003)", cursor, q5)
