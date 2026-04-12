@@ -26,9 +26,12 @@ python src/main.py
 <!-- RESULTS_START -->
 ```
 
-### Query 1 - Vehicles at Edinburgh (O001)
+============================================================
+  Query 1 - Vehicles at Edinburgh (O001)
+============================================================
 
-```sql
+SQL:
+
         SELECT
             v.RegistrationNumber,
             v.Make,
@@ -39,18 +42,20 @@ python src/main.py
         FROM VEHICLE v
         JOIN OUTLET o ON v.OutletNumber = o.OutletNumber
         WHERE o.OutletNumber = 'O001'
-    ```
+    
 
-**Results:**
+Results:
+  RegistrationNumber | Make       | Model | EngineSize | Capacity | DailyHireRate
+  -------------------------------------------------------------------------------
+  EH21 XYZ           | Vauxhall   | Corsa | 1.2L       | 5        | 35.0         
+  EH22 JKL           | Volkswagen | Golf  | 2.0L       | 5        | 50.0         
 
-| RegistrationNumber | Make | Model | EngineSize | Capacity | DailyHireRate |
-| --- | --- | --- | --- | --- | --- |
-| EH21 XYZ | Vauxhall | Corsa | 1.2L | 5 | 35.0 |
-| EH22 JKL | Volkswagen | Golf | 2.0L | 5 | 50.0 |
+============================================================
+  Query 2 - Hire history for Client C001 (Robert Thomson)
+============================================================
 
-### Query 2 - Hire history for Client C001 (Robert Thomson)
+SQL:
 
-```sql
         SELECT
             h.HireNumber,
             h.StartDate,
@@ -64,18 +69,20 @@ python src/main.py
         JOIN CLIENT c ON h.ClientNumber = c.ClientNumber
         JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
         WHERE c.ClientNumber = 'C001'
-    ```
+    
 
-**Results:**
+Results:
+  HireNumber | StartDate  | EndDate    | MileageBefore | MileageAfter | Make       | Model | RegistrationNumber
+  -------------------------------------------------------------------------------------------------------------
+  H001       | 2024-01-10 | 2024-01-15 | 12000         | 12350        | Vauxhall   | Corsa | EH21 XYZ          
+  H005       | 2024-05-20 | 2024-05-25 | 31000         | 31540        | Volkswagen | Golf  | EH22 JKL          
 
-| HireNumber | StartDate | EndDate | MileageBefore | MileageAfter | Make | Model | RegistrationNumber |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| H001 | 2024-01-10 | 2024-01-15 | 12000 | 12350 | Vauxhall | Corsa | EH21 XYZ |
-| H005 | 2024-05-20 | 2024-05-25 | 31000 | 31540 | Volkswagen | Golf | EH22 JKL |
+============================================================
+  Query 3 - Staff at Glasgow (O002)
+============================================================
 
-### Query 3 - Staff at Glasgow (O002)
+SQL:
 
-```sql
         SELECT
             s.StaffNumber,
             s.FirstName,
@@ -85,18 +92,20 @@ python src/main.py
         FROM STAFF s
         JOIN OUTLET o ON s.OutletNumber = o.OutletNumber
         WHERE o.OutletNumber = 'O002'
-    ```
+    
 
-**Results:**
+Results:
+  StaffNumber | FirstName | LastName | JobTitle       | Salary 
+  -------------------------------------------------------------
+  S003        | Hamish    | Stewart  | Branch Manager | 44000.0
+  S004        | Morag     | Fraser   | Sales Advisor  | 27000.0
 
-| StaffNumber | FirstName | LastName | JobTitle | Salary |
-| --- | --- | --- | --- | --- |
-| S003 | Hamish | Stewart | Branch Manager | 44000.0 |
-| S004 | Morag | Fraser | Sales Advisor | 27000.0 |
+============================================================
+  Query 4 - Mileage driven on Hire H003
+============================================================
 
-### Query 4 - Mileage driven on Hire H003
+SQL:
 
-```sql
         SELECT
             h.HireNumber,
             h.MileageBefore,
@@ -113,17 +122,19 @@ python src/main.py
         JOIN VEHICLE v ON h.RegistrationNumber = v.RegistrationNumber
         WHERE h.HireNumber = 'H003'
         AND h.MileageAfter IS NOT NULL
-    ```
+    
 
-**Results:**
+Results:
+  HireNumber | MileageBefore | MileageAfter | MileageDriven | FirstName | LastName | PhoneNumber    | Make   | Model   | EngineSize
+  ---------------------------------------------------------------------------------------------------------------------------------
+  H003       | 45000         | 45620        | 620           | David     | Brown    | 01224-555-2003 | Nissan | Qashqai | 1.5L      
 
-| HireNumber | MileageBefore | MileageAfter | MileageDriven | FirstName | LastName | PhoneNumber | Make | Model | EngineSize |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| H003 | 45000 | 45620 | 620 | David | Brown | 01224-555-2003 | Nissan | Qashqai | 1.5L |
+============================================================
+  Query 5 - Active hires at Aberdeen (O003)
+============================================================
 
-### Query 5 - Active hires at Aberdeen (O003)
+SQL:
 
-```sql
         SELECT
             h.HireNumber,
             h.StartDate,
@@ -141,12 +152,11 @@ python src/main.py
         WHERE o.OutletNumber = 'O003'
         AND h.MileageAfter IS NULL
         AND h.EndDate >= DATE('now')
-    ```
+    
 
-**Results:**
-
-| HireNumber | StartDate | EndDate | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| H007 | 2024-06-05 | 2026-04-30 | AB20 PQR | Ford | Kuga | Emma | Scott | 0131-555-2006 |
+Results:
+  HireNumber | StartDate  | EndDate    | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber  
+  ---------------------------------------------------------------------------------------------------------------
+  H007       | 2024-06-05 | 2026-04-30 | AB20 PQR           | Ford | Kuga  | Emma      | Scott    | 0131-555-2006
 ```
 <!-- RESULTS_END -->
