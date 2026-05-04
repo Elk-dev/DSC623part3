@@ -160,8 +160,6 @@ SQL:
     
 
 Results:
-  HireNumber | StartDate  | EndDate    | RegistrationNumber | Make | Model | FirstName | LastName | PhoneNumber  
-  ---------------------------------------------------------------------------------------------------------------
-  H007       | 2024-06-05 | 2026-04-30 | AB20 PQR           | Ford | Kuga  | Emma      | Scott    | 0131-555-2006
+  No results found.
 ```
 <!-- RESULTS_END -->
